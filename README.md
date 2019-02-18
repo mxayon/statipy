@@ -6,10 +6,13 @@ sign up to get credentials:
 developer.spotify
 
 sign in through command line:
+<br>
 export SPOTIPY_CLIENT_ID='xxxxxxxx'
+<br>
 export SPOTIPY_CLIENT_SECRET='xxxxxxxxx'
+<br>
 export SPOTIPY_REDIRECT_URI='https://mxnkpl.com/'
-
+<br>
 * IMPORTANT: SPOTIPY_REDIRECT_URI='can be taco /'
   - just dont forget the " / " after; where spotify is going to redirect api request.
 
