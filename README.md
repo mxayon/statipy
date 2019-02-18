@@ -3,7 +3,8 @@ python app using spotipy wrapper for gathering data from the spotify api to perf
 
 #get auth
 sign up to get credentials:
-developer.spotify
+<br>
+https://developer.spotify.com/
 
 sign in through command line:
 <br>
