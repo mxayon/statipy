@@ -48,19 +48,15 @@ if __name__ == '__main__':
     # Statipy object call | auth
     token = util.prompt_for_user_token(username, scope)
 
-
-
-
     if token:
         # Creates Spotify obj
         stp = spotipy.Spotify(auth=token)
         # Gets current users playlists
         playlists = stp.user_playlists(username)
-        # Set.. Go!
+        # Ready Set.. Go! (counters)
         track_ids = []
         artist_ids = []
         album_ids = []
-        ready = 0
         # Loops through playlists
         for playlist in playlists['items']:
             if playlist['owner']['id'] == username:
@@ -76,7 +72,7 @@ if __name__ == '__main__':
                 while tracks['next']:
                     tracks = stp.next(tracks)
                     show(tracks)
-
+        # gathers data from tracks in playlists
         show_track_artist()
         print("Total Playlists Analyzed : {}".format(len(playlists)))
         print("Total Tracks : {}".format(len(track_ids)))
