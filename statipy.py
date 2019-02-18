@@ -9,11 +9,14 @@ class Discogs:
         self.album = album
         self.artist = artist
 
-class Statipyo:
-    def __init__(self, song, artist, album):
-        self.song = song
-        self.artist = artist
-        self.album = album
+def show(tracks):
+    for i, item in enumerate(tracks['items']):
+        track = item['track']
+        track_key = track['id']
+        track_results = stp.track(track_key)
+        track_ids.append(track_key)
+        print( " {} {} {}".format(i, track['artists'][0]['name'], track['name']))
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
@@ -26,28 +29,31 @@ if __name__ == '__main__':
         sys.exit()
 
     token = util.prompt_for_user_token(username, scope)
+    stp = spotipy.Spotify(auth=token)
+
+
+    track_ids = []
+    artists_ids = []
+    album_ids = []
+    ready = 0
+
+
     if token:
         # Creates Spotify obj
-        stpy = spotipy.Spotify(auth=token)
         # Gets current users playlists
-        playlists = stpy.user_playlists(username)
+        playlists = stp.user_playlists(username)
         # Set.. Go!
-        song_ids = []
-        artists_ids = []
-        album_ids = []
-        ready = 0
         # Loops through playlists
         for playlist in playlists['items']:
             if playlist['owner']['id'] == username:
                 print(playlist['name'])
                 print("   total tracks", playlist['tracks']['total'])
-                results = stpy.user_playlist(username, playlist['id'],
-                                    fields="tracks,next")
+                results = stp.user_playlist(username, playlist['id'], fields="tracks,next")
                 tracks = results['tracks']
                 print()
                 print()
-                print(json.dumps(tracks, sort_keys=True, indent=4))
 
+                show(tracks)
     else:
         print("Token not cool. Auth Required.")
 
