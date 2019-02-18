@@ -1,12 +1,13 @@
 # statipy
 python app using spotipy wrapper for gathering data from the spotify api to perform some exploratory data analysis &amp; visualizations of current users tracks and artists
 
-#get auth
+# get auth
 sign up to get credentials:
 <br>
 https://developer.spotify.com/
 
-sign in through command line:
+sign in through CLI:
+<br>
 <br>
 export SPOTIPY_CLIENT_ID='xxxxxxxx'
 <br>
