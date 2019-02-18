@@ -66,14 +66,17 @@ if __name__ == '__main__':
                 tracks = results['tracks']
                 print()
                 print()
-
                 show(tracks)
 
             # while tracks >> next
                 while tracks['next']:
                     tracks = stp.next(tracks)
                     show(tracks)
-                    show_track_artist()
+
+        show_track_artist()
+        print("Total Playlists Analyzed : {}".format(len(playlists)))
+        print("Total Tracks : {}".format(len(track_ids)))
+        print("Total Artists : {}".format(len(artist_ids)))
     else:
         print("Token not cool. Auth Required.")
 
