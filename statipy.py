@@ -14,7 +14,7 @@ def show(tracks):
         track_ids.append(track_key)
         artist_ids.append(artist_key)
         print( " {} {} {}".format(i, track['artists'][0]['name'], track['name']))
-        print()
+    print()
 
 def show_track_artist():
     for item in range(len(track_ids)):
@@ -27,9 +27,13 @@ def show_track_artist():
         artist_key = artist_info[0]['id']
         print("Artist: {} | {}  |".format(artist_name, artist_key))
         artist_results = stp.artist(artist_key)
-        print(json.dumps(artist_results, sort_keys=True, indent=4))
-
-
+        # print(json.dumps(artist_results, sort_keys=True, indent=4))
+        artist_pop = artist_results['popularity']
+        artist_ff = artist_results['followers']['total']
+        print("Artist Popularity: {} | Followers: {} |".format(artist_pop, artist_ff))
+        print()
+        print()
+    print()
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
@@ -60,8 +64,8 @@ if __name__ == '__main__':
         # Loops through playlists
         for playlist in playlists['items']:
             if playlist['owner']['id'] == username:
-                # print(playlist['name'])
-                # print("   total tracks", playlist['tracks']['total'])
+                print(playlist['name'])
+                print("   total tracks", playlist['tracks']['total'])
                 results = stp.user_playlist(username, playlist['id'], fields="tracks,next")
                 tracks = results['tracks']
                 print()
