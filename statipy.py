@@ -15,7 +15,13 @@ def show(tracks):
         track_key = track['id']
         track_results = stp.track(track_key)
         track_ids.append(track_key)
-        print( " {} {} {}".format(i, track['artists'][0]['name'], track['name']))
+        # print( " {} {} {}".format(i, track['artists'][0]['name'], track['name']))
+
+def show_track_artist():
+    print()
+def show_track_album():
+    print()
+
 
 
 if __name__ == '__main__':
@@ -28,21 +34,22 @@ if __name__ == '__main__':
         print("usage: python user_playlists.py [username]")
         sys.exit()
 
+    # Statipy object call | auth
     token = util.prompt_for_user_token(username, scope)
-    stp = spotipy.Spotify(auth=token)
 
 
-    track_ids = []
-    artists_ids = []
-    album_ids = []
-    ready = 0
 
 
     if token:
         # Creates Spotify obj
+        stp = spotipy.Spotify(auth=token)
         # Gets current users playlists
         playlists = stp.user_playlists(username)
         # Set.. Go!
+        track_ids = []
+        artists_ids = []
+        album_ids = []
+        ready = 0
         # Loops through playlists
         for playlist in playlists['items']:
             if playlist['owner']['id'] == username:
@@ -54,6 +61,9 @@ if __name__ == '__main__':
                 print()
 
                 show(tracks)
+                print(len(track_ids))
+
+            # while tracks >> next
     else:
         print("Token not cool. Auth Required.")
 
