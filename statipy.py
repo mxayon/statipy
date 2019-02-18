@@ -31,11 +31,11 @@ if __name__ == '__main__':
         stpy = spotipy.Spotify(auth=token)
         # Gets current users playlists
         playlists = stpy.user_playlists(username)
-
+        # Set.. Go!
         song_ids = []
         artists_ids = []
         album_ids = []
-
+        ready = 0
         # Loops through playlists
         for playlist in playlists['items']:
             if playlist['owner']['id'] == username:
