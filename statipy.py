@@ -26,6 +26,7 @@ def show_track_artist(track_key):
         artist_info = track_results['artists']
         artist_name = artist_info[0]['name']
         artist_key = artist_info[0]['id']
+        print()
         print("Song: {} | {}  |".format(track_results['name'], track_results['id']))
         print("Song popularity: {} Contains explicit content? {}".format(track_results['popularity'], track_results['explicit']))
         print("Artist: {} | {}  |".format(artist_name, artist_key))
@@ -35,8 +36,11 @@ def show_artist(artist_key):
         artist_key = artist_ids[item]
         artist_results = stp.artist(artist_key)
         # print(json.dumps(artist_results, sort_keys=True, indent=4))
+        artist_name = artist_results['name']
         artist_pop = artist_results['popularity']
         artist_ff = artist_results['followers']['total']
+        print()
+        print("\t {}".format(artist_name))
         print("Artist Popularity: {} | Followers: {} |".format(artist_pop, artist_ff))
         print()
     print("***********************")
