@@ -25,10 +25,13 @@ def show_track_artist(track_key):
         artist_name = artist_info[0]['name']
         artist_key = artist_info[0]['id']
         # Appened Albums to global here
+        album_key = track_results['album']['id']
+        album_ids.append(album_key)
         print()
         print("Song: {} | Popularity: {}".format(track_results['name'], track_results['popularity']))
         print("Contains explicit content? {} | Artist: {}".format(track_results['explicit'], artist_name))
         print("Song Id: {} | Artist Id: {} |".format(track_results['id'], artist_key))
+        print("Album Id: " + album_key)
 
 def show_artist(artist_key):
     for item in range(len(artist_ids)):
