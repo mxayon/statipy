@@ -7,14 +7,19 @@ sign up to get credentials:
 https://developer.spotify.com/
 
 sign in through CLI:
+You need to set your Spotify API credentials. You can do this by
+setting environment variables like so:
 <br>
+
+export SPOTIPY_CLIENT_ID='your-spotify-client-id'
 <br>
-export SPOTIPY_CLIENT_ID='xxxxxxxx'
+
+export SPOTIPY_CLIENT_SECRET='your-spotify-client-secret'
 <br>
-export SPOTIPY_CLIENT_SECRET='xxxxxxxxx'
+
+export SPOTIPY_REDIRECT_URI='your-app-redirect-url'
 <br>
-export SPOTIPY_REDIRECT_URI='https://mxnkpl.com/'
-<br>
+
 * IMPORTANT: SPOTIPY_REDIRECT_URI='can be taco /'
   - just dont forget the " / " after; where spotify is going to redirect api request.
 
