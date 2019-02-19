@@ -68,6 +68,7 @@ if __name__ == '__main__':
         track_ids = []
         artist_ids = []
         album_ids = []
+        playlist_ids = []
         count = 0
         # Loops through playlists
         print("Calling Spotify Api for Data...")
@@ -77,8 +78,10 @@ if __name__ == '__main__':
         for playlist in playlists['items']:
             if playlist['owner']['id'] == username:
                 print( " >>> "  + playlist['name'])
-                results = stp.user_playlist(username, playlist['id'], fields="tracks,next")
+                playlist_key = playlist['id']
+                results = stp.user_playlist(username, playlist_key, fields="tracks,next")
                 tracks = results['tracks']
+                playlist_ids.append(playlist_key)
                 show(tracks)
                 print("\t >> total tracks", playlist['tracks']['total'])
                 print()
@@ -98,7 +101,7 @@ if __name__ == '__main__':
         print("***********************")
         print("Total Tracks : {}".format(len(track_ids)))
         print("Total Artists : {}".format(len(artist_ids)))
-        print("Total Playlists Analyzed : {}".format(len(playlists)))
+        print("Total Playlists Analyzed : {}".format(len(playlist_ids)))
     else:
         print("Token not cool. Auth Required.")
 
