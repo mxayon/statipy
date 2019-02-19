@@ -13,7 +13,7 @@ def show(tracks):
         artist_key = artist_info[0]['id']
         track_ids.append(track_key)
         artist_ids.append(artist_key)
-        print( " {} \t {} || {}".format(i, track['name'], track['artists'][0]['name']))
+        print("\t {} \t {} || {}".format(i, track['name'], track['artists'][0]['name']))
     print()
 
 def show_track_artist():
@@ -37,8 +37,11 @@ def show_track_artist():
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         username = sys.argv[1]
-        scope = "user-read-private user-read-email user-top-read user-library-read"
-        print("|| Hello, -" + username + " - Welcome to STATIPY world! || ")
+        scope = "user-read-private user-read-email user-library-read playlist-modify-private playlist-modify-public playlist-read-collaborative"
+        print()
+        print("____________")
+        print("|| || Hello, -" + username + " - Welcome to STATIPY world! || ||")
+        print("____________")
         print()
     else:
         print("ALERT - NOT AUTHORIZED")
@@ -60,8 +63,9 @@ if __name__ == '__main__':
         # Loops through playlists
         for playlist in playlists['items']:
             if playlist['owner']['id'] == username:
-                print(playlist['name'] + " :")
-                print("   total tracks", playlist['tracks']['total'])
+                print("Playlists to Analyze:")
+                print( " >> "  + playlist['name'])
+                print("\t total tracks", playlist['tracks']['total'])
                 results = stp.user_playlist(username, playlist['id'], fields="tracks,next")
                 tracks = results['tracks']
                 show(tracks)
@@ -71,10 +75,11 @@ if __name__ == '__main__':
                     tracks = stp.next(tracks)
                     show(tracks)
         # gathers data from tracks in playlists
-        show_track_artist()
-        print("Total Playlists Analyzed : {}".format(len(playlists)))
-        print("Total Tracks : {}".format(len(track_ids)))
-        print("Total Artists : {}".format(len(artist_ids)))
+                    show_track_artist()
+
+                print("Total Playlists Analyzed : {}".format(len(playlists)))
+                print("Total Tracks : {}".format(len(track_ids)))
+                print("Total Artists : {}".format(len(artist_ids)))
     else:
         print("Token not cool. Auth Required.")
 
