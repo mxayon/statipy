@@ -14,7 +14,8 @@ def show(tracks):
         artist_key = artist_info[0]['id']
         track_ids.append(track_key)
         artist_ids.append(artist_key)
-        print("\t {} \t {} || {}".format(i, track['name'], track['artists'][0]['name']))
+        # print("\t {} \t {} || {}".format(i, track['name'], track['artists'][0]['name']))
+
     print()
 
 
@@ -22,24 +23,22 @@ def show_track_artist(track_key):
     for item in range(len(track_ids)):
         track_key = track_ids[item]
         track_results = stp.track(track_key)
-        print("Song: {} | {}  |".format(track_results['name'], track_results['id']))
-        print("Song popularity: {} Contains explicit content? {}".format(track_results['popularity'], track_results['explicit']))
-        print("Artist: {} | {}  |".format(artist_name, artist_key))
         artist_info = track_results['artists']
         artist_name = artist_info[0]['name']
         artist_key = artist_info[0]['id']
-
-    print()
+        print("Song: {} | {}  |".format(track_results['name'], track_results['id']))
+        print("Song popularity: {} Contains explicit content? {}".format(track_results['popularity'], track_results['explicit']))
+        print("Artist: {} | {}  |".format(artist_name, artist_key))
 
 def show_artist(artist_key):
-    for i in range(len(artist_ids)):
+    for item in range(len(artist_ids)):
         artist_key = artist_ids[item]
-        artist_results = stp.artist([artist_key])
+        artist_results = stp.artist(artist_key)
         # print(json.dumps(artist_results, sort_keys=True, indent=4))
         artist_pop = artist_results['popularity']
         artist_ff = artist_results['followers']['total']
         print("Artist Popularity: {} | Followers: {} |".format(artist_pop, artist_ff))
-
+        print()
     print("***********************")
     print()
 
@@ -69,27 +68,32 @@ if __name__ == '__main__':
         track_ids = []
         artist_ids = []
         album_ids = []
+        count = 0
         # Loops through playlists
-        print("Playlists to Analyze:")
+        print("Calling Spotify Api for Data...")
+        print()
+        print("Gathering Playlists to Analyze:")
+        print()
         for playlist in playlists['items']:
             if playlist['owner']['id'] == username:
-                print( " >> "  + playlist['name'])
-                print("\t total tracks", playlist['tracks']['total'])
+                print( " >>> "  + playlist['name'])
                 results = stp.user_playlist(username, playlist['id'], fields="tracks,next")
                 tracks = results['tracks']
                 show(tracks)
-
+                print("\t >> total tracks", playlist['tracks']['total'])
+                print()
+                print()
                 # while tracks >> next
                 while tracks['next']:
                     tracks = stp.next(tracks)
                     show(tracks)
-            print(json.dumps(tracks, sort_keys=True, indent=4))
-            time_added = tracks['added_at']
-            track_info = tracks['track']
-            track_key = track_info['id']
-            # gathers data from tracks in playlists
-            show_track_artist(track_key)
-            show_artist(artist_key)
+        print()
+        # gathers data from tracks in playlists
+
+        show_track_artist(track_ids)
+        show_artist(artist_ids)
+        print()
+
 
         print("***********************")
         print("Total Tracks : {}".format(len(track_ids)))
