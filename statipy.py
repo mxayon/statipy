@@ -6,6 +6,7 @@ import spotipy.util as util
 
 def show(tracks):
     for i, item in enumerate(tracks['items']):
+        """ prints through playlist tracks with # and appends to global """
         track = item['track']
         track_key = track['id']
         track_results = stp.track(track_key)
@@ -32,16 +33,16 @@ def show_track_artist():
         artist_ff = artist_results['followers']['total']
         print("Artist Popularity: {} | Followers: {} |".format(artist_pop, artist_ff))
         print()
+    print("***********************")
     print()
-
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         username = sys.argv[1]
-        scope = "user-read-private user-read-email user-library-read playlist-modify-private playlist-modify-public playlist-read-collaborative"
+        scope = "user-read-private user-read-email user-library-read playlist-read-private playlist-read-collaborative"
         print()
-        print("____________")
-        print("|| || Hello, -" + username + " - Welcome to STATIPY world! || ||")
-        print("____________")
+        print()
+        print("** || Hello, * " + username + " * Welcome to STATIPY world! || **")
+        print()
         print()
     else:
         print("ALERT - NOT AUTHORIZED")
@@ -56,14 +57,14 @@ if __name__ == '__main__':
         stp = spotipy.Spotify(auth=token)
         # Gets current users playlists
         playlists = stp.user_playlists(username)
-        # Ready Set.. Go! (counters)
+        # Ready Set.. Global Variablles!
         track_ids = []
         artist_ids = []
         album_ids = []
         # Loops through playlists
+        print("Playlists to Analyze:")
         for playlist in playlists['items']:
             if playlist['owner']['id'] == username:
-                print("Playlists to Analyze:")
                 print( " >> "  + playlist['name'])
                 print("\t total tracks", playlist['tracks']['total'])
                 results = stp.user_playlist(username, playlist['id'], fields="tracks,next")
@@ -75,11 +76,12 @@ if __name__ == '__main__':
                     tracks = stp.next(tracks)
                     show(tracks)
         # gathers data from tracks in playlists
-                    show_track_artist()
+                show_track_artist()
 
-                print("Total Playlists Analyzed : {}".format(len(playlists)))
-                print("Total Tracks : {}".format(len(track_ids)))
-                print("Total Artists : {}".format(len(artist_ids)))
+        print("***********************")
+        print("Total Tracks : {}".format(len(track_ids)))
+        print("Total Artists : {}".format(len(artist_ids)))
+        print("Total Playlists Analyzed : {}".format(len(playlists)))
     else:
         print("Token not cool. Auth Required.")
 
