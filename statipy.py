@@ -35,6 +35,7 @@ def show_track_artist():
         print()
     print("***********************")
     print()
+    
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         username = sys.argv[1]
