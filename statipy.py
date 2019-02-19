@@ -13,7 +13,7 @@ def show(tracks):
         artist_key = artist_info[0]['id']
         track_ids.append(track_key)
         artist_ids.append(artist_key)
-        print( " {} {} {}".format(i, track['artists'][0]['name'], track['name']))
+        print( " {} \t {} || {}".format(i, track['name'], track['artists'][0]['name']))
     print()
 
 def show_track_artist():
@@ -32,7 +32,6 @@ def show_track_artist():
         artist_ff = artist_results['followers']['total']
         print("Artist Popularity: {} | Followers: {} |".format(artist_pop, artist_ff))
         print()
-        print()
     print()
 
 if __name__ == '__main__':
@@ -40,6 +39,7 @@ if __name__ == '__main__':
         username = sys.argv[1]
         scope = "user-read-private user-read-email user-top-read user-library-read"
         print("|| Hello, -" + username + " - Welcome to STATIPY world! || ")
+        print()
     else:
         print("ALERT - NOT AUTHORIZED")
         print("usage: python user_playlists.py [username]")
@@ -60,12 +60,10 @@ if __name__ == '__main__':
         # Loops through playlists
         for playlist in playlists['items']:
             if playlist['owner']['id'] == username:
-                print(playlist['name'])
+                print(playlist['name'] + " :")
                 print("   total tracks", playlist['tracks']['total'])
                 results = stp.user_playlist(username, playlist['id'], fields="tracks,next")
                 tracks = results['tracks']
-                print()
-                print()
                 show(tracks)
 
             # while tracks >> next
