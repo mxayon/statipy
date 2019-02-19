@@ -16,8 +16,6 @@ def show(tracks):
         artist_ids.append(artist_key)
         # print("\t {} \t {} || {}".format(i, track['name'], track['artists'][0]['name']))
 
-    print()
-
 
 def show_track_artist(track_key):
     for item in range(len(track_ids)):
@@ -26,6 +24,7 @@ def show_track_artist(track_key):
         artist_info = track_results['artists']
         artist_name = artist_info[0]['name']
         artist_key = artist_info[0]['id']
+        # Appened Albums to global here
         print()
         print("Song: {} | {}  |".format(track_results['name'], track_results['id']))
         print("Song popularity: {} Contains explicit content? {}".format(track_results['popularity'], track_results['explicit']))
@@ -39,9 +38,19 @@ def show_artist(artist_key):
         artist_name = artist_results['name']
         artist_pop = artist_results['popularity']
         artist_ff = artist_results['followers']['total']
+        artist_genre = artist_results['genres']
+        # New data set
         print()
         print("\t {}".format(artist_name))
         print("Artist Popularity: {} | Followers: {} |".format(artist_pop, artist_ff))
+        # Genre error handling:
+        if len(artist_genre) >= 0:
+            for x in range(len(artist_genre)):
+                print(" {} |".format(artist_genre[x]))
+        elif arr(artist_genre) == arr(empty):
+            print("* Unclassifiable *")
+        else:
+            print("---")
         print()
     print("***********************")
     print()
@@ -52,7 +61,9 @@ if __name__ == '__main__':
         scope = "user-read-private user-read-email user-library-read playlist-read-private playlist-read-collaborative"
         print()
         print()
+        print()
         print("** || Hello, * " + username + " * Welcome to STATIPY world! || **")
+        print()
         print()
         print()
     else:
@@ -87,21 +98,17 @@ if __name__ == '__main__':
                 tracks = results['tracks']
                 playlist_ids.append(playlist_key)
                 show(tracks)
-                print("\t >> total tracks", playlist['tracks']['total'])
-                print()
-                print()
+                print("\t | total tracks:", playlist['tracks']['total'])
                 # while tracks >> next
                 while tracks['next']:
                     tracks = stp.next(tracks)
                     show(tracks)
-        print()
-        # gathers data from tracks in playlists
-
+                print()
         show_track_artist(track_ids)
+        print("***********************")
         show_artist(artist_ids)
+        # Gathers data from tracks in playlists
         print()
-
-
         print("***********************")
         print("Total Tracks : {}".format(len(track_ids)))
         print("Total Artists : {}".format(len(artist_ids)))
