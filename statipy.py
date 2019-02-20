@@ -12,6 +12,10 @@ def show(tracks):
         track_results = stp.track(track_key)
         artist_info = track_results['artists']
         artist_key = artist_info[0]['id']
+        album_key = track_results['album']['id']
+        album_name = track_results['album']['name']
+        # Appened to global here
+        album_ids.append(album_key)
         track_ids.append(track_key)
         artist_ids.append(artist_key)
         # print("\t {} \t {} || {}".format(i, track['name'], track['artists'][0]['name']))
@@ -22,16 +26,18 @@ def show_track_artist(track_key):
         track_key = track_ids[item]
         track_results = stp.track(track_key)
         artist_info = track_results['artists']
+        album_key = track_results['album']['id']
+        album_name = track_results['album']['name']
         artist_name = artist_info[0]['name']
         artist_key = artist_info[0]['id']
-        # Appened Albums to global here
-        album_key = track_results['album']['id']
-        album_ids.append(album_key)
         print()
         print("Song: {} | Popularity: {}".format(track_results['name'], track_results['popularity']))
         print("Contains explicit content? {} | Artist: {}".format(track_results['explicit'], artist_name))
         print("Song Id: {} | Artist Id: {} |".format(track_results['id'], artist_key))
-        print("Album Id: " + album_key)
+        print("Album: {} | Album Id: {}".format(album_name, album_key))
+        if album_name is None:
+            print("--")
+        print()
 
 def show_artist(artist_key):
     for item in range(len(artist_ids)):
@@ -48,15 +54,31 @@ def show_artist(artist_key):
         print("Artist Popularity: {} | Followers: {} |".format(artist_pop, artist_ff))
         # Genre error handling:
         if len(artist_genre) >= 0:
+            print("Artist Genre: ")
             for x in range(len(artist_genre)):
-                print(" {} |".format(artist_genre[x]))
-        elif arr(artist_genre) == arr(empty):
+                print(" \t {} |".format(artist_genre[x]))
+        elif artist_genre is None:
             print("* Unclassifiable *")
         else:
             print("---")
         print()
+        album_key = artist_results['album']['id']
+        show_album(album_key)
     print("***********************")
     print()
+
+def show_album(album_key):
+    for item in range(len(album_ids)):
+        album_id = album_ids[item]
+        album_results = stp.album([album_key])
+        album_info = album_results['album']
+        album_name = album_info['name']
+        album_rd = album_info['release_date']
+        album_tracks = album_info['total_tracks']
+        album_img = album_info[2]['url']
+        # print(album_img)
+        print("Album: {} ({}) Released: {}  |  {}  |".format(album_name, album_tracks, album_rd, album_key) )
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
