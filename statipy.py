@@ -15,9 +15,9 @@ def show(tracks):
         album_key = track_results['album']['id']
         album_name = track_results['album']['name']
         # Appened to global here
-        album_ids.append(album_key)
         track_ids.append(track_key)
         artist_ids.append(artist_key)
+        album_ids.append(album_key)
         # print("\t {} \t {} || {}".format(i, track['name'], track['artists'][0]['name']))
 
 
@@ -31,9 +31,9 @@ def show_track_artist(track_key):
         artist_name = artist_info[0]['name']
         artist_key = artist_info[0]['id']
         print()
-        print("Song: {} | Popularity: {}".format(track_results['name'], track_results['popularity']))
-        print("Contains explicit content? {} | Artist: {}".format(track_results['explicit'], artist_name))
-        print("Song Id: {} | Artist Id: {} |".format(track_results['id'], artist_key))
+        print("Song: {} Popularity: {}".format(track_results['name'], track_results['popularity']))
+        print("Contains explicit content?: {} Artist: {}".format(track_results['explicit'], artist_name))
+        print("Song Id: {} | Artist Id: {} ".format(track_results['id'], artist_key))
         print("Album: {} | Album Id: {}".format(album_name, album_key))
         if album_name is None:
             print("--")
@@ -51,33 +51,30 @@ def show_artist(artist_key):
         # New data set
         print()
         print("\t {}".format(artist_name))
-        print("Artist Popularity: {} | Followers: {} |".format(artist_pop, artist_ff))
+        print("Artist Popularity: {} Followers: {}".format(artist_pop, artist_ff))
         # Genre error handling:
         if len(artist_genre) >= 0:
-            print("Artist Genre: ")
+            print("Genre: ")
             for x in range(len(artist_genre)):
-                print(" \t {} |".format(artist_genre[x]))
+                print(" \t {}".format(artist_genre[x]))
         elif artist_genre is None:
             print("* Unclassifiable *")
         else:
             print("---")
         print()
-        album_key = artist_results['album']['id']
-        show_album(album_key)
     print("***********************")
     print()
 
 def show_album(album_key):
-    for item in range(len(album_ids)):
-        album_id = album_ids[item]
-        album_results = stp.album([album_key])
-        album_info = album_results['album']
-        album_name = album_info['name']
-        album_rd = album_info['release_date']
-        album_tracks = album_info['total_tracks']
-        album_img = album_info[2]['url']
+    for key in range(len(album_ids)):
+        album_key = album_ids[key]
+        album_results = stp.album(album_key)
+        album_name = album_results['name']
+        album_rd = album_results['release_date']
+        album_tracks = album_results['total_tracks']
+        # album_img = album_results['images']['url']
         # print(album_img)
-        print("Album: {} ({}) Released: {}  |  {}  |".format(album_name, album_tracks, album_rd, album_key) )
+        print("Album: {} Total Tracks: {} Released: {}  |  {} ".format(album_name, album_tracks, album_rd, album_key) )
 
 
 if __name__ == '__main__':
@@ -123,16 +120,17 @@ if __name__ == '__main__':
                 tracks = results['tracks']
                 playlist_ids.append(playlist_key)
                 show(tracks)
-                print("\t | total tracks:", playlist['tracks']['total'])
+                print("\t total tracks:", playlist['tracks']['total'])
                 # while tracks >> next
                 while tracks['next']:
                     tracks = stp.next(tracks)
                     show(tracks)
                 print()
+                # Gathers data from tracks in playlists
         show_track_artist(track_ids)
         print("***********************")
         show_artist(artist_ids)
-        # Gathers data from tracks in playlists
+        show_album(album_ids)
         print()
         print("***********************")
         print("Total Tracks : {}".format(len(track_ids)))
