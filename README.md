@@ -53,5 +53,3 @@ use notes to break code into readable segments
 things I looked up / reviewed
   FOR LOOP - particulary range(len(x))
   enumerate
-
-save to a class?
