@@ -33,8 +33,8 @@ def show_track_artist(track_key):
         print()
         print("Song: {} Popularity: {}".format(track_results['name'], track_results['popularity']))
         print("Contains explicit content?: {} Artist: {}".format(track_results['explicit'], artist_name))
-        print("Song Id: {} | Artist Id: {} ".format(track_results['id'], artist_key))
-        print("Album: {} | Album Id: {}".format(album_name, album_key))
+        # print("Song Id: {} | Artist Id: {} ".format(track_results['id'], artist_key))
+        # print("Album: {} | Album Id: {}".format(album_name, album_key))
         if album_name is None:
             print("--")
         print()
@@ -74,7 +74,7 @@ def show_album(album_key):
         album_tracks = album_results['total_tracks']
         # album_img = album_results['images']['url']
         # print(album_img)
-        print("Album: {} Total Tracks: {} Released: {}  |  {} ".format(album_name, album_tracks, album_rd, album_key) )
+        print("Album: {} Total Tracks: {} Released: {} ".format(album_name, album_tracks, album_rd) )
 
 
 if __name__ == '__main__':
