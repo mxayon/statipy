@@ -4,6 +4,12 @@ import json
 from json.decoder import JSONDecodeError
 import spotipy.util as util
 
+t_results = []
+a_results = []
+ab_results = []
+
+
+
 def show(tracks):
     for i, item in enumerate(tracks['items']):
         """ prints through playlist tracks with # and appends to global """
@@ -14,6 +20,8 @@ def show(tracks):
         artist_key = artist_info[0]['id']
         album_key = track_results['album']['id']
         album_name = track_results['album']['name']
+        # adds to global variable
+        t_results = t_results.append(track_key)
         # Appened to global here
         track_ids.append(track_key)
         artist_ids.append(artist_key)
@@ -30,6 +38,8 @@ def show_track_artist(track_key):
         album_name = track_results['album']['name']
         artist_name = artist_info[0]['name']
         artist_key = artist_info[0]['id']
+        # adds to global variable
+        a_results = a_results.append(artist_info)
         print()
         print("Song: {} Popularity: {}".format(track_results['name'], track_results['popularity']))
         print("Contains explicit content?: {} Artist: {}".format(track_results['explicit'], artist_name))
@@ -48,6 +58,8 @@ def show_artist(artist_key):
         artist_pop = artist_results['popularity']
         artist_ff = artist_results['followers']['total']
         artist_genre = artist_results['genres']
+        # adds to global variable
+        ab_results = ab_results.append(artist_results)
         # New data set
         print()
         print("\t {}".format(artist_name))
