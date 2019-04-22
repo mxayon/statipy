@@ -143,12 +143,17 @@ of current users saved, public, private and followed playlists.
 The objective is to analyze the frequency of objects and find patterns in the saved data that could be used to improve playlist content and Spotify user experience.
 
 #Playlist, Artists & Albums
+<br>
 **update**
+<br>
 As of 4/10 there are a total of 991 tracks.
 
 Total Tracks : 971
+<br>
 Total Artists : 971
+<br>
 Total Playlists Analyzed : 19
+<br>
 
 
 #### Takeaways for statipy_analyzer
@@ -159,12 +164,15 @@ Indents matter -
 
 naming convention -
   plural S and singular
+  <br>
   " " vs ' '
+  <br>
   key vs id
 
 #### Takeaways for Exploratory Data Analyis
 
-Save time: Plan ahead, ask questions,
-clean data frame and prepare data types early.
+Save time: Plan ahead, ask questions.
+<br>
+Clean data frame and prepare data types early.
 
 Have a clear divide and conquer plan before trying new things.
